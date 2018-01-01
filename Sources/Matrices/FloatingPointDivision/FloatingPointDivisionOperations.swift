@@ -29,3 +29,16 @@ public func /<T: FloatingPoint>(lhs: T, rhs: RowVector<T>) -> ScalarRowFloatingP
 public func /<T: FloatingPoint>(lhs: RowVector<T>, rhs: T) -> RowScalarFloatingPointDivision<T> {
     return RowScalarFloatingPointDivision(lhs: lhs, rhs: rhs)
 }
+
+
+public func /<T: FloatingPoint>(lhs: Matrix<T>, rhs: Matrix<T>) -> MatrixFloatingPointDivision<T> {
+    return MatrixFloatingPointDivision(lhs: lhs, rhs: rhs)
+}
+
+public func /<T: FloatingPoint>(lhs: T, rhs: Matrix<T>) -> ScalarMatrixFloatingPointDivision<T> {
+    return ScalarMatrixFloatingPointDivision(lhs: lhs, rhs: rhs)
+}
+
+public func /<T: FloatingPoint>(lhs: Matrix<T>, rhs: T) -> MatrixScalarFloatingPointDivision<T> {
+    return MatrixScalarFloatingPointDivision(lhs: lhs, rhs: rhs)
+}

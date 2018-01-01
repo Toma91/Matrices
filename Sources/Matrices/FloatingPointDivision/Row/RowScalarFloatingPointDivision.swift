@@ -19,7 +19,7 @@ public struct RowScalarFloatingPointDivision<T: FloatingPoint> {
     
 }
 
-extension RowScalarFloatingPointDivision {
+public extension RowScalarFloatingPointDivision {
     
     var length: Int { return lhs.length }
     

@@ -21,7 +21,7 @@ public struct ColumnFloatingPointDivision<T: FloatingPoint> {
     
 }
 
-extension ColumnFloatingPointDivision {
+public extension ColumnFloatingPointDivision {
     
     var length: Int { return lhs.length }
     

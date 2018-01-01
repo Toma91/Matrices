@@ -29,3 +29,16 @@ public func <~<T>(lhs: inout RowVector<T>, rhs: ScalarRowFloatingPointDivision<T
 public func <~<T>(lhs: inout RowVector<T>, rhs: RowScalarFloatingPointDivision<T>) {
     rhs.execute(into: &lhs)
 }
+
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixFloatingPointDivision<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: ScalarMatrixFloatingPointDivision<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixScalarFloatingPointDivision<T>) {
+    rhs.execute(into: &lhs)
+}
