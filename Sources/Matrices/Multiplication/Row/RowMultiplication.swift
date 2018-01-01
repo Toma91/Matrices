@@ -1,18 +1,18 @@
 //
-//  ColumnMultiplication.swift
+//  RowMultiplication.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct ColumnMultiplication<T: Numeric> {
+public struct RowMultiplication<T: Numeric> {
     
-    private let lhs: ColumnVector<T>
+    private let lhs: RowVector<T>
     
-    private let rhs: ColumnVector<T>
+    private let rhs: RowVector<T>
     
     
-    init(lhs: ColumnVector<T>, rhs: ColumnVector<T>) {
+    init(lhs: RowVector<T>, rhs: RowVector<T>) {
         precondition(lhs.length == rhs.length)
         
         self.lhs = lhs
@@ -21,15 +21,15 @@ public struct ColumnMultiplication<T: Numeric> {
     
 }
 
-extension ColumnMultiplication {
+public extension RowMultiplication {
     
     var length: Int { return lhs.length }
     
 }
 
-extension ColumnMultiplication {
+extension RowMultiplication {
  
-    func execute(into vector: inout ColumnVector<T>) {
+    func execute(into vector: inout RowVector<T>) {
         precondition(vector.length == lhs.length)
         
         for i in 0 ..< length { vector[i] = lhs[i] * rhs[i] }

@@ -29,3 +29,16 @@ public func <~<T>(lhs: inout RowVector<T>, rhs: ScalarRowMultiplication<T>) {
 public func <~<T>(lhs: inout RowVector<T>, rhs: RowScalarMultiplication<T>) {
     rhs.execute(into: &lhs)
 }
+
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixMultiplication<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: ScalarMatrixMultiplication<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixScalarMultiplication<T>) {
+    rhs.execute(into: &lhs)
+}

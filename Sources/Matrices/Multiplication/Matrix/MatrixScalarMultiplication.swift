@@ -1,28 +1,25 @@
 //
-//  MatrixMultiplication.swift
+//  MatrixScalarMultiplication.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct MatrixMultiplication<T: Numeric> {
+public struct MatrixScalarMultiplication<T: Numeric> {
     
     private let lhs: Matrix<T>
-    
-    private let rhs: Matrix<T>
-    
-    
-    init(lhs: Matrix<T>, rhs: Matrix<T>) {
-        precondition(lhs.nRows == rhs.nRows)
-        precondition(lhs.nColumns == rhs.nColumns)
 
+    private let rhs: T
+    
+    
+    init(lhs: Matrix<T>, rhs: T) {
         self.lhs = lhs
         self.rhs = rhs
     }
     
 }
 
-public extension MatrixMultiplication {
+public extension MatrixScalarMultiplication {
     
     var nRows:      Int { return lhs.nRows }
     
@@ -30,7 +27,7 @@ public extension MatrixMultiplication {
 
 }
 
-extension MatrixMultiplication {
+extension MatrixScalarMultiplication {
  
     func execute(into matrix: inout Matrix<T>) {
         precondition(matrix.nRows == nRows)
@@ -38,7 +35,7 @@ extension MatrixMultiplication {
         
         for r in 0 ..< nRows {
             for c in 0 ..< nColumns {
-                matrix[row: r, column: c] = lhs[row: r, column: c] * rhs[row: r, column: c]
+                matrix[row: r, column: c] = lhs[row: r, column: c] * rhs
             }
         }
     }

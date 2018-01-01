@@ -19,7 +19,7 @@ public struct ColumnScalarMultiplication<T: Numeric> {
     
 }
 
-extension ColumnScalarMultiplication {
+public extension ColumnScalarMultiplication {
     
     var length: Int { return lhs.length }
     

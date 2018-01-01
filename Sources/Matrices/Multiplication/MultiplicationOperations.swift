@@ -29,3 +29,16 @@ public func *<T>(lhs: T, rhs: RowVector<T>) -> ScalarRowMultiplication<T> {
 public func *<T>(lhs: RowVector<T>, rhs: T) -> RowScalarMultiplication<T> {
     return RowScalarMultiplication(lhs: lhs, rhs: rhs)
 }
+
+
+public func *<T>(lhs: Matrix<T>, rhs: Matrix<T>) -> MatrixMultiplication<T> {
+    return MatrixMultiplication(lhs: lhs, rhs: rhs)
+}
+
+public func *<T>(lhs: T, rhs: Matrix<T>) -> ScalarMatrixMultiplication<T> {
+    return ScalarMatrixMultiplication(lhs: lhs, rhs: rhs)
+}
+
+public func *<T>(lhs: Matrix<T>, rhs: T) -> MatrixScalarMultiplication<T> {
+    return MatrixScalarMultiplication(lhs: lhs, rhs: rhs)
+}
