@@ -1,38 +1,36 @@
 //
-//  RowAddition.swift
+//  RowScalarAddition.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct RowAddition<T: Numeric> {
+public struct RowScalarAddition<T: Numeric> {
     
     private let lhs: RowVector<T>
+
+    private let rhs: T
     
-    private let rhs: RowVector<T>
     
-    
-    init(lhs: RowVector<T>, rhs: RowVector<T>) {
-        precondition(lhs.length == rhs.length)
-        
+    init(lhs: RowVector<T>, rhs: T) {
         self.lhs = lhs
         self.rhs = rhs
     }
     
 }
 
-extension RowAddition {
+public extension RowScalarAddition {
     
     var length: Int { return lhs.length }
     
 }
 
-extension RowAddition {
+extension RowScalarAddition {
  
     func execute(into vector: inout RowVector<T>) {
         precondition(vector.length == lhs.length)
         
-        for i in 0 ..< length { vector[i] = lhs[i] + rhs[i] }
+        for i in 0 ..< length { vector[i] = lhs[i] + rhs }
     }
     
 }

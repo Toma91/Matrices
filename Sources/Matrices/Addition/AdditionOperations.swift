@@ -29,3 +29,16 @@ public func +<T>(lhs: T, rhs: RowVector<T>) -> ScalarRowAddition<T> {
 public func +<T>(lhs: RowVector<T>, rhs: T) -> RowScalarAddition<T> {
     return RowScalarAddition(lhs: lhs, rhs: rhs)
 }
+
+
+public func +<T>(lhs: Matrix<T>, rhs: Matrix<T>) -> MatrixAddition<T> {
+    return MatrixAddition(lhs: lhs, rhs: rhs)
+}
+
+public func +<T>(lhs: T, rhs: Matrix<T>) -> ScalarMatrixAddition<T> {
+    return ScalarMatrixAddition(lhs: lhs, rhs: rhs)
+}
+
+public func +<T>(lhs: Matrix<T>, rhs: T) -> MatrixScalarAddition<T> {
+    return MatrixScalarAddition(lhs: lhs, rhs: rhs)
+}

@@ -1,33 +1,33 @@
 //
-//  ScalarColumnAddition.swift
+//  ScalarRowAddition.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct ScalarColumnAddition<T: Numeric> {
+public struct ScalarRowAddition<T: Numeric> {
     
     private let lhs: T
     
-    private let rhs: ColumnVector<T>
+    private let rhs: RowVector<T>
     
     
-    init(lhs: T, rhs: ColumnVector<T>) {
+    init(lhs: T, rhs: RowVector<T>) {
         self.lhs = lhs
         self.rhs = rhs
     }
     
 }
 
-extension ScalarColumnAddition {
+public extension ScalarRowAddition {
     
     var length: Int { return rhs.length }
     
 }
 
-extension ScalarColumnAddition {
+extension ScalarRowAddition {
  
-    func execute(into vector: inout ColumnVector<T>) {
+    func execute(into vector: inout RowVector<T>) {
         precondition(vector.length == rhs.length)
         
         for i in 0 ..< length { vector[i] = lhs + rhs[i] }
