@@ -9,15 +9,18 @@ public struct Matrix<T: Numeric> {
 
     private var storage:    Storage<T>
 
+    private let transposed: Bool
+    
     public let nRows:       Int
     
     public let nColumns:    Int
     
     
-    init(storage: Storage<T>, nRows: Int, nColumns: Int) {
+    init(storage: Storage<T>, transposed: Bool, nRows: Int, nColumns: Int) {
         precondition(storage.count == nRows * nColumns)
         
         self.storage    = storage
+        self.transposed = transposed
         self.nRows      = nRows
         self.nColumns   = nColumns
     }
@@ -26,14 +29,22 @@ public struct Matrix<T: Numeric> {
 
 public extension Matrix {
     
-    var ᵀ: TransposedMatrix<T> { return TransposedMatrix(transposing: self) }
+    var ᵀ: Matrix<T> {
+        return Matrix(
+            storage: storage, transposed: !transposed,
+            nRows: nColumns, nColumns: nRows
+        )
+    }
     
 }
 
 public extension Matrix {
     
     init(nRows: Int, nColumns: Int) {
-        self.init(storage: Storage(size: nRows * nColumns), nRows: nRows, nColumns: nColumns)
+        self.init(
+            storage: Storage(size: nRows * nColumns), transposed: false,
+            nRows: nRows, nColumns: nColumns
+        )
     }
 
 }
@@ -45,7 +56,11 @@ public extension Matrix {
             precondition(row.checkBounds(min: 0, max: nRows))
             precondition(column.checkBounds(min: 0, max: nColumns))
 
-            return storage[row * nColumns + column]
+            let index = transposed
+                ? column * nRows + row
+                : row * nColumns + column
+            
+            return storage[index]
         }
         set {
             precondition(row.checkBounds(min: 0, max: nRows))
@@ -55,7 +70,11 @@ public extension Matrix {
                 storage = Storage(copying: storage)
             }
             
-            return storage[row * nColumns + column] = newValue
+            let index = transposed
+                ? column * nRows + row
+                : row * nColumns + column
+            
+            return storage[index] = newValue
         }
     }
     
