@@ -29,3 +29,16 @@ public func <~<T>(lhs: inout RowVector<T>, rhs: ScalarRowSubtraction<T>) {
 public func <~<T>(lhs: inout RowVector<T>, rhs: RowScalarSubtraction<T>) {
     rhs.execute(into: &lhs)
 }
+
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixSubtraction<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: ScalarMatrixSubtraction<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixScalarSubtraction<T>) {
+    rhs.execute(into: &lhs)
+}

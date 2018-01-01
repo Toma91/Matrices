@@ -29,3 +29,16 @@ public func -<T>(lhs: T, rhs: RowVector<T>) -> ScalarRowSubtraction<T> {
 public func -<T>(lhs: RowVector<T>, rhs: T) -> RowScalarSubtraction<T> {
     return RowScalarSubtraction(lhs: lhs, rhs: rhs)
 }
+
+
+public func -<T>(lhs: Matrix<T>, rhs: Matrix<T>) -> MatrixSubtraction<T> {
+    return MatrixSubtraction(lhs: lhs, rhs: rhs)
+}
+
+public func -<T>(lhs: T, rhs: Matrix<T>) -> ScalarMatrixSubtraction<T> {
+    return ScalarMatrixSubtraction(lhs: lhs, rhs: rhs)
+}
+
+public func -<T>(lhs: Matrix<T>, rhs: T) -> MatrixScalarSubtraction<T> {
+    return MatrixScalarSubtraction(lhs: lhs, rhs: rhs)
+}

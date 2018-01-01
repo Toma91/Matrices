@@ -1,18 +1,18 @@
 //
-//  ColumnSubtraction.swift
+//  RowSubtraction.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct ColumnSubtraction<T: Numeric> {
+public struct RowSubtraction<T: Numeric> {
     
-    private let lhs: ColumnVector<T>
+    private let lhs: RowVector<T>
     
-    private let rhs: ColumnVector<T>
+    private let rhs: RowVector<T>
     
     
-    init(lhs: ColumnVector<T>, rhs: ColumnVector<T>) {
+    init(lhs: RowVector<T>, rhs: RowVector<T>) {
         precondition(lhs.length == rhs.length)
         
         self.lhs = lhs
@@ -21,15 +21,15 @@ public struct ColumnSubtraction<T: Numeric> {
     
 }
 
-extension ColumnSubtraction {
+public extension RowSubtraction {
     
     var length: Int { return lhs.length }
     
 }
 
-extension ColumnSubtraction {
+extension RowSubtraction {
  
-    func execute(into vector: inout ColumnVector<T>) {
+    func execute(into vector: inout RowVector<T>) {
         precondition(vector.length == lhs.length)
         
         for i in 0 ..< length { vector[i] = lhs[i] - rhs[i] }

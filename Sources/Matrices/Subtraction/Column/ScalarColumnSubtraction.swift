@@ -1,33 +1,33 @@
 //
-//  ScalarRowSubtraction.swift
+//  ScalarColumnSubtraction.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct ScalarRowSubtraction<T: Numeric> {
+public struct ScalarColumnSubtraction<T: Numeric> {
     
     private let lhs: T
     
-    private let rhs: RowVector<T>
+    private let rhs: ColumnVector<T>
     
     
-    init(lhs: T, rhs: RowVector<T>) {
+    init(lhs: T, rhs: ColumnVector<T>) {
         self.lhs = lhs
         self.rhs = rhs
     }
     
 }
 
-extension ScalarRowSubtraction {
+public extension ScalarColumnSubtraction {
     
     var length: Int { return rhs.length }
     
 }
 
-extension ScalarRowSubtraction {
+extension ScalarColumnSubtraction {
  
-    func execute(into vector: inout RowVector<T>) {
+    func execute(into vector: inout ColumnVector<T>) {
         precondition(vector.length == rhs.length)
         
         for i in 0 ..< length { vector[i] = lhs - rhs[i] }
