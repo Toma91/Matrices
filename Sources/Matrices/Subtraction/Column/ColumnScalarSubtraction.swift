@@ -30,7 +30,7 @@ extension ColumnScalarSubtraction {
     func execute(into vector: inout ColumnVector<T>) {
         precondition(vector.length == lhs.length)
         
-        for i in 0 ..< length { vector[i] = lhs[i] + rhs }
+        for i in 0 ..< length { vector[i] = lhs[i] - rhs }
     }
     
 }

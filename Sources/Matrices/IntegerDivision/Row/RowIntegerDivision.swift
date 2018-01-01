@@ -32,7 +32,7 @@ extension RowIntegerDivision {
     func execute(into vector: inout RowVector<T>) {
         precondition(vector.length == lhs.length)
         
-        for i in 0 ..< length { vector[i] = lhs[i] - rhs[i] }
+        for i in 0 ..< length { vector[i] = lhs[i] / rhs[i] }
     }
     
 }

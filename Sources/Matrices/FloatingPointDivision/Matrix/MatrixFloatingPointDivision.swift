@@ -38,7 +38,7 @@ extension MatrixFloatingPointDivision {
         
         for r in 0 ..< nRows {
             for c in 0 ..< nColumns {
-                matrix[row: r, column: c] = lhs[row: r, column: c] + rhs[row: r, column: c]
+                matrix[row: r, column: c] = lhs[row: r, column: c] / rhs[row: r, column: c]
             }
         }
     }
