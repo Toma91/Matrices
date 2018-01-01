@@ -5,7 +5,7 @@
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct RowFloatingPointDivision<T: BinaryInteger> {
+public struct RowFloatingPointDivision<T: FloatingPoint> {
     
     private let lhs: RowVector<T>
     

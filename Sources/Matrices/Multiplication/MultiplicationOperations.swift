@@ -9,6 +9,23 @@ public func *<T>(lhs: ColumnVector<T>, rhs: ColumnVector<T>) -> ColumnMultiplica
     return ColumnMultiplication(lhs: lhs, rhs: rhs)
 }
 
+public func *<T>(lhs: T, rhs: ColumnVector<T>) -> ScalarColumnMultiplication<T> {
+    return ScalarColumnMultiplication(lhs: lhs, rhs: rhs)
+}
+
+public func *<T>(lhs: ColumnVector<T>, rhs: T) -> ColumnScalarMultiplication<T> {
+    return ColumnScalarMultiplication(lhs: lhs, rhs: rhs)
+}
+
+
 public func *<T>(lhs: RowVector<T>, rhs: RowVector<T>) -> RowMultiplication<T> {
     return RowMultiplication(lhs: lhs, rhs: rhs)
+}
+
+public func *<T>(lhs: T, rhs: RowVector<T>) -> ScalarRowMultiplication<T> {
+    return ScalarRowMultiplication(lhs: lhs, rhs: rhs)
+}
+
+public func *<T>(lhs: RowVector<T>, rhs: T) -> RowScalarMultiplication<T> {
+    return RowScalarMultiplication(lhs: lhs, rhs: rhs)
 }
