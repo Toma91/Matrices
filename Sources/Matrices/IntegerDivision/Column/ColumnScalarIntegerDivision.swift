@@ -19,7 +19,7 @@ public struct ColumnScalarIntegerDivision<T: BinaryInteger> {
     
 }
 
-extension ColumnScalarIntegerDivision {
+public extension ColumnScalarIntegerDivision {
     
     var length: Int { return lhs.length }
     

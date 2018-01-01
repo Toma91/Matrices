@@ -29,3 +29,16 @@ public func <~<T>(lhs: inout RowVector<T>, rhs: ScalarRowIntegerDivision<T>) {
 public func <~<T>(lhs: inout RowVector<T>, rhs: RowScalarIntegerDivision<T>) {
     rhs.execute(into: &lhs)
 }
+
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixIntegerDivision<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: ScalarMatrixIntegerDivision<T>) {
+    rhs.execute(into: &lhs)
+}
+
+public func <~<T>(lhs: inout Matrix<T>, rhs: MatrixScalarIntegerDivision<T>) {
+    rhs.execute(into: &lhs)
+}

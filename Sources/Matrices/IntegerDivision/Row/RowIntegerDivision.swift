@@ -21,7 +21,7 @@ public struct RowIntegerDivision<T: BinaryInteger> {
     
 }
 
-extension RowIntegerDivision {
+public extension RowIntegerDivision {
     
     var length: Int { return lhs.length }
     

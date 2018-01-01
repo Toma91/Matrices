@@ -29,3 +29,16 @@ public func /<T: BinaryInteger>(lhs: T, rhs: RowVector<T>) -> ScalarRowIntegerDi
 public func /<T: BinaryInteger>(lhs: RowVector<T>, rhs: T) -> RowScalarIntegerDivision<T> {
     return RowScalarIntegerDivision(lhs: lhs, rhs: rhs)
 }
+
+
+public func /<T: BinaryInteger>(lhs: Matrix<T>, rhs: Matrix<T>) -> MatrixIntegerDivision<T> {
+    return MatrixIntegerDivision(lhs: lhs, rhs: rhs)
+}
+
+public func /<T: BinaryInteger>(lhs: T, rhs: Matrix<T>) -> ScalarMatrixIntegerDivision<T> {
+    return ScalarMatrixIntegerDivision(lhs: lhs, rhs: rhs)
+}
+
+public func /<T: BinaryInteger>(lhs: Matrix<T>, rhs: T) -> MatrixScalarIntegerDivision<T> {
+    return MatrixScalarIntegerDivision(lhs: lhs, rhs: rhs)
+}

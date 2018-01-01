@@ -21,7 +21,7 @@ public struct ColumnIntegerDivision<T: BinaryInteger> {
     
 }
 
-extension ColumnIntegerDivision {
+public extension ColumnIntegerDivision {
     
     var length: Int { return lhs.length }
     

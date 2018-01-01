@@ -1,33 +1,33 @@
 //
-//  ScalarRowIntegerDivision.swift
+//  ScalarColumnIntegerDivision.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-public struct ScalarRowIntegerDivision<T: BinaryInteger> {
+public struct ScalarColumnIntegerDivision<T: BinaryInteger> {
     
     private let lhs: T
     
-    private let rhs: RowVector<T>
+    private let rhs: ColumnVector<T>
     
     
-    init(lhs: T, rhs: RowVector<T>) {
+    init(lhs: T, rhs: ColumnVector<T>) {
         self.lhs = lhs
         self.rhs = rhs
     }
     
 }
 
-extension ScalarRowIntegerDivision {
+public extension ScalarColumnIntegerDivision {
     
     var length: Int { return rhs.length }
     
 }
 
-extension ScalarRowIntegerDivision {
+extension ScalarColumnIntegerDivision {
  
-    func execute(into vector: inout RowVector<T>) {
+    func execute(into vector: inout ColumnVector<T>) {
         precondition(vector.length == rhs.length)
         
         for i in 0 ..< length { vector[i] = lhs / rhs[i] }
