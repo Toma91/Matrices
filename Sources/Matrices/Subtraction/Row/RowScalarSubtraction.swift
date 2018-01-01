@@ -28,7 +28,7 @@ public extension RowScalarSubtraction {
 extension RowScalarSubtraction {
  
     func execute(into vector: inout RowVector<T>) {
-        precondition(vector.length == lhs.length)
+        precondition(vector.length == length)
         
         for i in 0 ..< length { vector[i] = lhs[i] - rhs }
     }

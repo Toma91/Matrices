@@ -28,7 +28,7 @@ public extension ScalarRowMultiplication {
 extension ScalarRowMultiplication {
  
     func execute(into vector: inout RowVector<T>) {
-        precondition(vector.length == rhs.length)
+        precondition(vector.length == length)
         
         for i in 0 ..< length { vector[i] = lhs * rhs[i] }
     }

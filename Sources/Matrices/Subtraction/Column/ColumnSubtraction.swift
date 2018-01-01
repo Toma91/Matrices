@@ -30,7 +30,7 @@ public extension ColumnSubtraction {
 extension ColumnSubtraction {
  
     func execute(into vector: inout ColumnVector<T>) {
-        precondition(vector.length == lhs.length)
+        precondition(vector.length == length)
         
         for i in 0 ..< length { vector[i] = lhs[i] - rhs[i] }
     }

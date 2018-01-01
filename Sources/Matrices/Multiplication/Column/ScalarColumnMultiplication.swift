@@ -28,7 +28,7 @@ public extension ScalarColumnMultiplication {
 extension ScalarColumnMultiplication {
  
     func execute(into vector: inout ColumnVector<T>) {
-        precondition(vector.length == rhs.length)
+        precondition(vector.length == length)
         
         for i in 0 ..< length { vector[i] = lhs * rhs[i] }
     }
