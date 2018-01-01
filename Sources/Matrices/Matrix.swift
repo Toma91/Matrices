@@ -74,7 +74,7 @@ public extension Matrix {
                 ? column * nRows + row
                 : row * nColumns + column
             
-            return storage[index] = newValue
+            storage[index] = newValue
         }
     }
     
