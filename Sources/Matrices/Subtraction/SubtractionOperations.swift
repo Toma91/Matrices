@@ -9,6 +9,23 @@ public func -<T>(lhs: ColumnVector<T>, rhs: ColumnVector<T>) -> ColumnSubtractio
     return ColumnSubtraction(lhs: lhs, rhs: rhs)
 }
 
+public func -<T>(lhs: T, rhs: ColumnVector<T>) -> ScalarColumnSubtraction<T> {
+    return ScalarColumnSubtraction(lhs: lhs, rhs: rhs)
+}
+
+public func -<T>(lhs: ColumnVector<T>, rhs: T) -> ColumnScalarSubtraction<T> {
+    return ColumnScalarSubtraction(lhs: lhs, rhs: rhs)
+}
+
+
 public func -<T>(lhs: RowVector<T>, rhs: RowVector<T>) -> RowSubtraction<T> {
     return RowSubtraction(lhs: lhs, rhs: rhs)
+}
+
+public func -<T>(lhs: T, rhs: RowVector<T>) -> ScalarRowSubtraction<T> {
+    return ScalarRowSubtraction(lhs: lhs, rhs: rhs)
+}
+
+public func -<T>(lhs: RowVector<T>, rhs: T) -> RowScalarSubtraction<T> {
+    return RowScalarSubtraction(lhs: lhs, rhs: rhs)
 }

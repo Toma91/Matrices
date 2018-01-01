@@ -1,3 +1,3 @@
 # Matrices
 
-A description of this package.
+A simple matrix and vector library written in Swift.
