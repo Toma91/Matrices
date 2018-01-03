@@ -60,7 +60,7 @@ public extension Matrix {
                 ? column * nRows + row
                 : row * nColumns + column
             
-            return storage[index]
+            return storage.address(at: index).pointee
         }
         set {
             precondition(row.checkBounds(min: 0, max: nRows))
@@ -74,7 +74,7 @@ public extension Matrix {
                 ? column * nRows + row
                 : row * nColumns + column
             
-            storage[index] = newValue
+            storage.mutableAddress(at: index).pointee = newValue
         }
     }
     
