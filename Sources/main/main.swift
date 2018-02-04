@@ -33,15 +33,23 @@ func test_b() -> Double {
     defer { ptr1.deallocate(capacity: 1 << 25) }
     defer { ptr2.deallocate(capacity: 1 << 25) }
     
-    var result: Float = 0
-    
+    //var result: Float = 0
+    var result = UnsafeMutablePointer<Float>.allocate(capacity: 1 << 25)
+    defer { result.deallocate(capacity: 1 << 25) }
+
     let d1 = Date()
-    vDSP_dotpr(
+    vDSP_vadd(
+        UnsafePointer(ptr1), 1,
+        UnsafePointer(ptr2), 1,
+        result, 1,
+        1 << 25
+    )
+    /*vDSP_dotpr(
         UnsafePointer(ptr1), 1,
         UnsafePointer(ptr2), 1,
         &result,
         1 << 25
-    )
+    )*/
     let d2 = Date()
     
     print(result)
@@ -51,11 +59,11 @@ func test_b() -> Double {
 
 @inline(never)
 func test_c() -> Double {
-    let v1 = RowVector<Float>(length: 1 << 25)
+    let v1 = ColumnVector<Float>(length: 1 << 25)
     let v2 = ColumnVector<Float>(length: 1 << 25)
 
     let d1 = Date()
-    let result = v1 • v2
+    let result = v1 + v2
     let d2 = Date()
     
     print(result)
@@ -66,9 +74,9 @@ func test_c() -> Double {
 let measure = false
 
 if measure {
-    let a = (0 ..< 100).map { _ in test_a() }
-    let b = (0 ..< 100).map { _ in test_b() }
-    let c = (0 ..< 100).map { _ in test_c() }
+    let a = (0 ..< 1000).map { _ in test_a() }
+    let b = (0 ..< 1000).map { _ in test_b() }
+    let c = (0 ..< 1000).map { _ in test_c() }
     
     print("a", "total", a.reduce(0, +), "min", a.min()!, "max", a.max()!, "avg", a.reduce(0, +) / Double(a.count))
     print("b", "total", b.reduce(0, +), "min", b.min()!, "max", b.max()!, "avg", b.reduce(0, +) / Double(b.count))
