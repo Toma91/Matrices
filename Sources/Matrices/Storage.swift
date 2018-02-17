@@ -5,54 +5,60 @@
 //  Created by Andrea Tomarelli on 31/12/17.
 //
 
+import Darwin.C
+
+@_versioned
 class Storage<T: Numeric> {
     
-    private let buffer: UnsafeMutableBufferPointer<T>
+    @_versioned
+    let _buffer: UnsafeMutablePointer<T>
+    
+    @_versioned
+    let count: Int
     
     
+    @_versioned @_inlineable
     init(size: Int) {
-        self.buffer = UnsafeMutableBufferPointer(
-            start: .allocate(capacity: size),
-            count: size
-        )
+        self._buffer = .allocate(capacity: size)
+        self.count = size
     }
     
     deinit {
-        buffer.baseAddress!.deinitialize(count: buffer.count)
+        _buffer.deallocate(capacity: count)
     }
     
 }
 
 extension Storage {
     
-    var count: Int { return buffer.count }
-    
-}
-
-extension Storage {
-    
+    @_versioned @_inlineable
     convenience init(copying other: Storage<T>) {
         self.init(size: other.count)
         
-        buffer.baseAddress!.initialize(
-            from: other.buffer.baseAddress!,
-            count: count
-        )
+        memcpy(_buffer, other._buffer,count)
     }
     
+    @_versioned @_inlineable
     convenience init(elements: [T]) {
         self.init(size: elements.count)
     
-        buffer.baseAddress!.initialize(from: elements, count: count)
+        elements.withUnsafeBytes { (bytes) -> Void in
+            memcpy(_buffer, bytes.baseAddress!, MemoryLayout<T>.size * count)
+        }
     }
     
 }
 
 extension Storage {
+
+    @_versioned @_inlineable
+    func address(at index: Int) -> UnsafePointer<T> {
+        return UnsafePointer(_buffer.advanced(by: index))
+    }
     
-    subscript(index: Int) -> T {
-        @inline(__always) get { return buffer[index] }
-        @inline(__always) set { buffer[index] = newValue }
+    @_versioned @_inlineable
+    func mutableAddress(at index: Int) -> UnsafeMutablePointer<T> {
+        return _buffer.advanced(by: index)
     }
     
 }

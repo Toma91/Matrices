@@ -7,6 +7,7 @@
 
 extension Numeric where Self: Comparable {
     
+    @_versioned @_inlineable
     func checkBounds(min: Self, max: Self) -> Bool {
         return self >= min && self < max
     }

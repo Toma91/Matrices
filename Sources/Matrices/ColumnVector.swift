@@ -7,37 +7,45 @@
 
 public struct ColumnVector<T: Numeric> {
 
-    private var storage: Storage<T>
+    @_versioned
+    var _storage: Storage<T>
 
     
+    @_versioned @_inlineable
     init(storage: Storage<T>) {
-        self.storage = storage
+        self._storage = storage
     }
 
 }
 
 public extension ColumnVector {
     
-    var length: Int { return storage.count }
+    @_inlineable
+    var length: Int { return _storage.count }
     
-    var ᵀ: RowVector<T> { return RowVector(storage: storage) }
+    @_inlineable
+    var ᵀ: RowVector<T> { return RowVector(storage: _storage) }
 
 }
 
 public extension ColumnVector {
 
+    @_inlineable
     init(length: Int) {
-        self.storage = Storage(size: length)
+        self._storage = Storage(size: length)
     }
     
+    @_inlineable
     init() {
         self.init(length: 0)
     }
     
+    @_inlineable
     init(elements: [T]) {
         self.init(storage: Storage(elements: elements))
     }
     
+    @_inlineable
     init(_ elements: T...) {
         self.init(elements: elements)
     }
@@ -46,20 +54,23 @@ public extension ColumnVector {
 
 public extension ColumnVector {
     
+    @_inlineable
     subscript(index: Int) -> T {
-        get {
+        @_inlineable
+        unsafeAddress {
             precondition(index.checkBounds(min: 0, max: length))
             
-            return storage[index]
+            return _storage.address(at: index)
         }
-        set {
+        @_inlineable
+        unsafeMutableAddress {
             precondition(index.checkBounds(min: 0, max: length))
-
-            if !isKnownUniquelyReferenced(&storage) {
-                storage = Storage(copying: storage)
+            
+            if !isKnownUniquelyReferenced(&_storage) {
+                _storage = Storage(copying: _storage)
             }
             
-            storage[index] = newValue
+            return _storage.mutableAddress(at: index)
         }
     }
     
