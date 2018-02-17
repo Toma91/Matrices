@@ -71,12 +71,12 @@ func test_c() -> Double {
     return d2.timeIntervalSince(d1)
 }
 
-let measure = false
+let measure = true
 
 if measure {
-    let a = (0 ..< 1000).map { _ in test_a() }
-    let b = (0 ..< 1000).map { _ in test_b() }
-    let c = (0 ..< 1000).map { _ in test_c() }
+    let a = (0 ..< 100).map { _ in test_a() }
+    let b = (0 ..< 100).map { _ in test_b() }
+    let c = (0 ..< 100).map { _ in test_c() }
     
     print("a", "total", a.reduce(0, +), "min", a.min()!, "max", a.max()!, "avg", a.reduce(0, +) / Double(a.count))
     print("b", "total", b.reduce(0, +), "min", b.min()!, "max", b.max()!, "avg", b.reduce(0, +) / Double(b.count))
