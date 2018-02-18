@@ -1,11 +1,34 @@
 //
-//  AdditionOperations.swift
+//  RowColumnDot.swift
 //  Matrices
 //
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
-infix operator •: MultiplicationPrecedence
+@_inlineable
+public func •<T>(lhs: RowVector<T>, rhs: ColumnVector<T>) -> T {
+    precondition(lhs.length == rhs.length)
+    
+    var result: T = 0
+    let m = lhs.length % 4
+    
+    
+    for i in 0 ..< m {
+        result += lhs._storage._buffer[i] * rhs._storage._buffer[i]
+    }
+    
+    for i in stride(from: m, to: lhs.length, by: 4) {
+        result += lhs._storage._buffer[i + 0] * rhs._storage._buffer[i + 0]
+        result += lhs._storage._buffer[i + 1] * rhs._storage._buffer[i + 1]
+        result += lhs._storage._buffer[i + 2] * rhs._storage._buffer[i + 2]
+        result += lhs._storage._buffer[i + 3] * rhs._storage._buffer[i + 3]
+    }
+    
+    return result
+}
+
+
+
 
 /*public func •<T>(lhs: Matrix<T>, rhs: ColumnVector<T>) -> ColumnVector<T> {
     precondition(lhs.nColumns == rhs.length)
@@ -57,29 +80,3 @@ infix operator •: MultiplicationPrecedence
     
     return Matrix(storage: storage, transposed: false, nRows: rhs.length, nColumns: lhs.length)
 }*/
-
-@_inlineable
-public func •<T>(lhs: RowVector<T>, rhs: ColumnVector<T>) -> T {
-    precondition(lhs.length == rhs.length)
-    
-    var result: T = 0
-    //for i in 0 ..< lhs.length { result += lhs[i] * rhs[i] }
-    /*for i in 0 ..< lhs.length {
-        result += lhs._storage.address(at: i).pointee * rhs._storage.address(at: i).pointee
-    }*/
-    
-    let m = lhs.length % 4
-    
-    for i in 0 ..< m {
-        result += lhs._storage.address(at: i).pointee * rhs._storage.address(at: i).pointee
-    }
-    
-    for i in stride(from: m, to: lhs.length, by: 4) {
-        result += lhs._storage.address(at: i + 0).pointee * rhs._storage.address(at: i + 0).pointee
-        result += lhs._storage.address(at: i + 1).pointee * rhs._storage.address(at: i + 1).pointee
-        result += lhs._storage.address(at: i + 2).pointee * rhs._storage.address(at: i + 2).pointee
-        result += lhs._storage.address(at: i + 3).pointee * rhs._storage.address(at: i + 3).pointee
-    }
-    
-    return result
-}

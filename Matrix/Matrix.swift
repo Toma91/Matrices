@@ -5,10 +5,12 @@
 //  Created by Andrea Tomarelli on 01/01/18.
 //
 
+// Too many ivars
+//
 public struct Matrix<T: Numeric> {
 
     @_versioned
-    var _storage:           Storage<T>
+    var _storage:           MatrixStorage<T>
 
     @_versioned
     let _transposed:        Bool
@@ -19,9 +21,7 @@ public struct Matrix<T: Numeric> {
     
     
     @_versioned @_inlineable
-    init(storage: Storage<T>, transposed: Bool, nRows: Int, nColumns: Int) {
-        precondition(storage.count == nRows * nColumns)
-        
+    init(storage: MatrixStorage<T>, transposed: Bool, nRows: Int, nColumns: Int) {
         self._storage       = storage
         self._transposed    = transposed
         self.nRows          = nRows
@@ -47,7 +47,7 @@ public extension Matrix {
     @_inlineable
     init(nRows: Int, nColumns: Int) {
         self.init(
-            storage: Storage(size: nRows * nColumns), transposed: false,
+            storage: MatrixStorage(nRows: nRows, nColumns: nColumns), transposed: false,
             nRows: nRows, nColumns: nColumns
         )
     }
@@ -59,30 +59,20 @@ public extension Matrix {
     @_inlineable
     subscript(row row: Int, column column: Int) -> T {
         @_inlineable
-        get {
-            precondition(row.checkBounds(min: 0, max: nRows))
-            precondition(column.checkBounds(min: 0, max: nColumns))
+        unsafeAddress {
+            precondition(row.checkBounds(min: 0, max: nRows) && column.checkBounds(min: 0, max: nColumns))
 
-            let index = _transposed
-                ? column * nRows + row
-                : row * nColumns + column
-            
-            return _storage.address(at: index).pointee
+            return _storage.address(at: _transposed ? (column, row) : (row, column))
         }
         @_inlineable
-        set {
-            precondition(row.checkBounds(min: 0, max: nRows))
-            precondition(column.checkBounds(min: 0, max: nColumns))
-
+        unsafeMutableAddress {
+            precondition(row.checkBounds(min: 0, max: nRows) && column.checkBounds(min: 0, max: nColumns))
+            
             if !isKnownUniquelyReferenced(&_storage) {
-                _storage = Storage(copying: _storage)
+                _storage = MatrixStorage(copying: _storage)
             }
             
-            let index = _transposed
-                ? column * nRows + row
-                : row * nColumns + column
-            
-            _storage.mutableAddress(at: index).pointee = newValue
+            return _storage.mutableAddress(at: _transposed ? (column, row) : (row, column))
         }
     }
     

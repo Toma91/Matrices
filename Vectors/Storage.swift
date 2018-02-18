@@ -8,7 +8,7 @@
 import Darwin.C
 
 @_versioned
-class Storage<T: Numeric> {
+final class Storage<T: Numeric> {
     
     @_versioned
     let _buffer: UnsafeMutablePointer<T>
@@ -35,7 +35,7 @@ extension Storage {
     convenience init(copying other: Storage<T>) {
         self.init(size: other.count)
         
-        memcpy(_buffer, other._buffer,count)
+        memcpy(_buffer, other._buffer, count)
     }
     
     @_versioned @_inlineable
